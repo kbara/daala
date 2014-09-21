@@ -737,6 +737,12 @@ static void od_compute_dcts(daala_enc_ctx *enc, od_mb_enc_ctx *ctx, int pli,
       x[2] = c[((by + 1) << l2)*w + (bx << l2)];
       x[3] = c[((by + 1) << l2)*w + ((bx + 1) << l2)];
       OD_HAAR_KERNEL(x[0], x[2], x[1], x[3]);
+      /* Scale just x[0] here, when l = 0 or 1 */
+      if (l == 0) {
+        /* Divide by 4-point DC scale number; multiply by 8-point DC scale number */
+        double scaler = 0.702148910611867905 / 0.7588944211602211;
+        x[0] *= scaler;
+      }
       c[(by << l2)*w + (bx << l2)] = x[0];
       c[(by << l2)*w + ((bx + 1) << l2)] = x[1];
       c[((by + 1) << l2)*w + (bx << l2)] = x[2];
