@@ -56,6 +56,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*/
 static double mode_bits = 0;
 static double mode_count = 0;
 
+static double scale4to8 = 0.702148910611867905 / 0.7588944211602211;
+
 static int od_quantizer_from_quality(int quality) {
   return quality == 0 ? 0 :
    (quality << OD_COEFF_SHIFT >> OD_QUALITY_SHIFT) +
@@ -740,8 +742,7 @@ static void od_compute_dcts(daala_enc_ctx *enc, od_mb_enc_ctx *ctx, int pli,
       /* Scale just x[0] here, when l = 0 or 1 */
       if (l == 0) {
         /* Divide by 4-point DC scale number; multiply by 8-point DC scale number */
-        double scaler = 0.702148910611867905 / 0.7588944211602211;
-        x[0] *= scaler;
+        x[0] *= scale4to8;
       }
       c[(by << l2)*w + (bx << l2)] = x[0];
       c[(by << l2)*w + ((bx + 1) << l2)] = x[1];
@@ -842,6 +843,7 @@ static void od_quantize_haar_dc(daala_enc_ctx *enc, od_mb_enc_ctx *ctx,
     hgrad = x[1];
     vgrad = x[2];
     OD_HAAR_KERNEL(x[0], x[1], x[2], x[3]);
+    x[0] /= scale4to8;
     c[(by << l2)*w + (bx << l2)] = x[0];
     c[(by << l2)*w + ((bx + 1) << l2)] = x[1];
     c[((by + 1) << l2)*w + (bx << l2)] = x[2];
