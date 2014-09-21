@@ -57,8 +57,8 @@ static double mode_bits = 0;
 static double mode_count = 0;
 
 /* Should these really be squared? Also, audit the values. */
-static double scale4to8 = pow(0.702148910611867905 / 0.7588944211602211, 2);
-static double scale8to16 = pow(0.731118503957986832 / 0.702148910611867905, 2);
+static double scale4to8 = 0.702148910611867905 / 0.7588944211602211;
+static double scale8to16 = 0.731118503957986832 / 0.702148910611867905;
 static int od_quantizer_from_quality(int quality) {
   return quality == 0 ? 0 :
    (quality << OD_COEFF_SHIFT >> OD_QUALITY_SHIFT) +
