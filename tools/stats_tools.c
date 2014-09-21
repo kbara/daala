@@ -35,7 +35,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*/
 #include "../src/dct.h"
 #include "../src/intra.h"
 
-#define PRINT_SCALE (0)
+#define PRINT_SCALE (1)
 
 void mode_data_init(mode_data *_md,int _b_sz){
   int i;

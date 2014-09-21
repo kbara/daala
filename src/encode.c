@@ -842,8 +842,8 @@ static void od_quantize_haar_dc(daala_enc_ctx *enc, od_mb_enc_ctx *ctx,
     x[2] += vgrad/5;
     hgrad = x[1];
     vgrad = x[2];
-    OD_HAAR_KERNEL(x[0], x[1], x[2], x[3]);
     x[0] *= scale4to8;
+    OD_HAAR_KERNEL(x[0], x[1], x[2], x[3]);
     c[(by << l2)*w + (bx << l2)] = x[0];
     c[(by << l2)*w + ((bx + 1) << l2)] = x[1];
     c[((by + 1) << l2)*w + (bx << l2)] = x[2];
