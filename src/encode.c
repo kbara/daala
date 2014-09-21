@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*/
 static double mode_bits = 0;
 static double mode_count = 0;
 
-static double scale4to8 = 0.702148910611867905 / 0.7588944211602211;
+static double scale4to8 = pow(0.702148910611867905 / 0.7588944211602211, 2);
 
 static int od_quantizer_from_quality(int quality) {
   return quality == 0 ? 0 :
